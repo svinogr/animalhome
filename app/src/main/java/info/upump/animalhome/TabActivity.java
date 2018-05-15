@@ -29,6 +29,9 @@ public class TabActivity extends AppCompatActivity {
     @BindView(R.id.tab_activity_view_pager)
     ViewPager mViewPager;
 
+/*    @BindView(R.id.fab_voice)
+    FloatingActionButton fabVoice;*/
+
     private List<Animal> animals = new ArrayList<>();
 
     public static Intent createInstance(Context context) {
@@ -46,13 +49,12 @@ public class TabActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-    @OnClick
+    @OnClick({R.id.fab_voice})
     void onClick(FloatingActionButton fab) {
-        Intent intent = null;
         switch (fab.getId()) {
             case R.id.fab_voice:
 //                intent = TabActivity.createInstance(this);
-                Toast.makeText(this, "fab_voice", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "fab_voice"+animals.get(mViewPager.getCurrentItem()).getName(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_info_voice:
 //                intent = GameActivity.createInstance(this);
@@ -63,37 +65,15 @@ public class TabActivity extends AppCompatActivity {
                 Toast.makeText(this, "fab_back", Toast.LENGTH_SHORT).show();
                 break;
         }
-        startActivity(intent);
     }
 
-    /*
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_tab, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }*/
     private List<Animal> getAnimal() {
 //        temporary
         List<Animal> animals = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Animal animal = new Animal();
             animal.setName("Кошка N" + i);
+            animal.setId(i);
             animals.add(animal);
         }
         return animals;
