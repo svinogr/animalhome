@@ -46,9 +46,13 @@ public class ListActivity extends AppCompatActivity {
     private List<Animal> getAnimal() {
 //        temporary
         List<Animal> animals = new ArrayList<>();
-        for(int i = 0; i <10; i++){
+        for (int i = 0; i < 3; i++) {
             Animal animal = new Animal();
-            animal.setName("Кошка N"+i);
+            animal.setName("Кошка N" + i);
+            animal.setId(i);
+            animal.setSoundAnimal(i+1+".mp3");
+            animal.setSoundAuthor(i+1+".mp3");
+            animal.setImage("a1");
             animals.add(animal);
         }
         return animals;

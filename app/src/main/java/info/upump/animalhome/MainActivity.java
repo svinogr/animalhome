@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = null;
         switch (fab.getId()) {
             case R.id.fab_pager:
-                intent = TabActivity.createInstance(this);
+                intent = TabActivity.createInstance(this, 0);
                 Toast.makeText(this, "fab_pager", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_game:

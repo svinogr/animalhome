@@ -20,20 +20,25 @@
         android:layout_height="70dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_audiotrack_black_24dp"
+       />
+    <!--app:srcCompat="@drawable/ic_audiotrack_black_24dp"-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_info_voice"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_gravity="end|bottom"
+        android:layout_marginRight="90dp"
+        android:src="@drawable/ic_chat_bubble_black_24dp"
+        app:layout_anchor="@id/fab_voice" />
+    <!--app:srcCompat="@drawable/ic_chat_bubble_black_24dp"-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_back"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        />
+    <!--app:srcCompat="@drawable/ic_arrow_back_black_24dp"-->
 </android.support.design.widget.CoordinatorLayout>

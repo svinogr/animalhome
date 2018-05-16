@@ -8,7 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,16 +29,20 @@ import info.upump.animalhome.entity.Animal;
 public class PlaceholderFragment extends Fragment{
     @BindView(R.id.textView)
     TextView textView;
+    @BindView(R.id.fragment_tab_image_view)
+    ImageView imageView;
 
     private Unbinder unbinder;
 
-    private static final String ID = "id";
+    private static final String IMAGE = "image";
+    private static final String NAME = "name";
 
     private Animal animal;
 
     public static PlaceholderFragment newInstance(Animal animal) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ID, animal.getId());
+        bundle.putString(IMAGE, animal.getImage());
+        bundle.putString(NAME, animal.getImage());
         PlaceholderFragment placeholderFragment = new PlaceholderFragment();
         placeholderFragment.setArguments(bundle);
         return placeholderFragment;
@@ -47,22 +58,35 @@ public class PlaceholderFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        textView.setText(String.valueOf(animal.getId()));
+        setImage();
+        textView.setText(String.valueOf(animal.getName()));
         return rootView;
+    }
+
+    private void setImage() {
+        RequestOptions options = new RequestOptions()
+//                .transforms(new RoundedCorners(50))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .priority(Priority.HIGH);
+        int identificator = getContext().getResources().getIdentifier(animal.getImage(), "drawable", getContext().getPackageName());
+
+        Glide.with(getContext()).load(identificator).apply(options).into(imageView);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
-        int id = arguments.getInt(ID);
-        animal = getAnimal(id);
+        animal = getAnimal(arguments);
     }
 
-    private Animal getAnimal(int id) {
-//        temporaru
+    private Animal getAnimal(Bundle arguments) {
+        String image = arguments.getString(IMAGE);
+        String name = arguments.getString(NAME);
         Animal animal = new Animal();
-        animal.setId(id);
+        animal.setImage(image);
+        animal.setName(name);
         return animal;
     }
 

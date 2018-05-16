@@ -7,6 +7,9 @@ package info.upump.animalhome.entity;
 public class Animal {
     private String name;
     private int id;
+    private String soundAnimal;
+    private String soundAuthor;
+    private String image;
 
     public Animal() {
     }
@@ -25,5 +28,29 @@ public class Animal {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSoundAnimal() {
+        return soundAnimal;
+    }
+
+    public void setSoundAnimal(String soundAnimal) {
+        this.soundAnimal = soundAnimal;
+    }
+
+    public String getSoundAuthor() {
+        return soundAuthor;
+    }
+
+    public void setSoundAuthor(String soundAuthor) {
+        this.soundAuthor = soundAuthor;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

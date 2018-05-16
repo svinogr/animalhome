@@ -1,6 +1,7 @@
 package info.upump.animalhome.entity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.upump.animalhome.R;
+import info.upump.animalhome.TabActivity;
 import info.upump.animalhome.entity.Animal;
 
 
@@ -40,20 +42,21 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Animal animal) {
         this.animal = animal;
-        Bitmap bitmap = Bitmap.createBitmap(100, 100,
-                Bitmap.Config.ARGB_8888);
-        bitmap.eraseColor(context.getResources().getColor(R.color.colorAccent));
         RequestOptions options = new RequestOptions()
-                .transforms(new RoundedCorners(50))
+                .transforms(new GlideCircleTransformation(context))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .priority(Priority.HIGH);
+        int identificator = context.getResources().getIdentifier(animal.getImage(), "drawable", context.getPackageName());
 
-        Glide.with(itemView.getContext()).load(bitmap).apply(options).into(imageView);
+        Glide.with(itemView.getContext()).load(identificator).apply(options).into(imageView);
         textView.setText(animal.getName());
     }
 
+
     @OnClick()
     void onClick(View view){
+        Intent intent = TabActivity.createInstance(context, animal.getId());
+        context.startActivity(intent);
         Toast.makeText(context, animal.getName(), Toast.LENGTH_SHORT).show();
     }
 }

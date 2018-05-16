@@ -28,20 +28,23 @@
         android:layout_height="70dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_image_black_24dp"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_list"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_gravity="end|bottom"
+        app:layout_anchor="@id/fab_pager"
+        android:layout_marginRight="90dp"
+
+        android:src="@drawable/ic_format_list_bulleted_black_24dp" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_game"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_gravity="end|bottom"
+        app:layout_anchor="@id/fab_list"
+        android:layout_marginRight="164dp"
+       android:src="@drawable/ic_play_arrow_black_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
