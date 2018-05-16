@@ -7,12 +7,14 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -29,15 +31,16 @@ public class TabActivity extends AppCompatActivity {
     @BindView(R.id.tab_activity_view_pager)
     ViewPager mViewPager;
 
+    @BindView(R.id.fab_voice)
+    FloatingActionButton fabVoice;
+
     private static String POSITION = "position";
 
-    private int[] soundAnimal;
-    private int[] soundAuthor;
-
-    private SoundPool soundPool;
+    private String[] soundAnimal;
+    private String[] soundAuthor;
+    private String nameTrack;
+    private MediaPlayer mediaPlayer;
     private AssetManager assetManager;
-    private int mStreamID;
-    private int sound;
 
     private List<Animal> animalList = new ArrayList<>();
 
@@ -47,11 +50,13 @@ public class TabActivity extends AppCompatActivity {
         return intent;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
         ButterKnife.bind(this);
+
         animalList = getAnimal();
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), animalList);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -59,70 +64,48 @@ public class TabActivity extends AppCompatActivity {
 
         mViewPager.setCurrentItem(position);
 
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // Для устройств до Android 5
-            createOldSoundPool();
-        } else {
-            // Для новых устройств
-            createNewSoundPool();
-        }
-
+        createMediaPlayer();
         assetManager = getAssets();
         createSoundsAnimal();
         createSoundsAuthor();
-
-        sound = loadSound("m.mp3");
-
     }
 
-    private void createSoundsAuthor() {
-        soundAnimal = new int[animalList.size()];
-       for (int i = 0; i< animalList.size(); i++){
-           soundAnimal[i] = loadSound(animalList.get(i).getSoundAnimal());
-       }
+    private void createMediaPlayer() {
+        mediaPlayer = new MediaPlayer();
     }
 
     private void createSoundsAnimal() {
-        soundAuthor = new int[animalList.size()];
-        for (int i = 0; i< animalList.size(); i++){
-            soundAuthor[i] = loadSound(animalList.get(i).getSoundAuthor());
+        soundAnimal = new String[animalList.size()];
+        for (int i = 0; i < animalList.size(); i++) {
+            soundAnimal[i] = (animalList.get(i).getSoundAnimal());
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void createNewSoundPool() {
-        AudioAttributes attributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
-        soundPool = new SoundPool.Builder()
-                .setAudioAttributes(attributes)
-                .build();
+    private void createSoundsAuthor() {
+        soundAuthor = new String[animalList.size()];
+        for (int i = 0; i < animalList.size(); i++) {
+            soundAuthor[i] = animalList.get(i).getSoundAuthor();
+        }
     }
 
-    @SuppressWarnings("deprecation")
-    private void createOldSoundPool() {
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-    }
-
-    private int loadSound(String fileName) {
-        AssetFileDescriptor afd;
+    public void playSoundWithMP(String fileName) {
+        AssetFileDescriptor descriptor = null;
         try {
-            afd = assetManager.openFd(fileName);
+            descriptor = assetManager.openFd(fileName);
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Не могу загрузить файл " + fileName,
-                    Toast.LENGTH_SHORT).show();
-            return -1;
         }
-        return soundPool.load(afd, 1);
-    }
+        long start = descriptor.getStartOffset();
+        long end = descriptor.getLength();
 
-    private int playSound(int sound) {
-        if (sound > 0) {
-            mStreamID = soundPool.play(sound, 1, 1, 1, 0, 1);
+        try {
+            mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return mStreamID;
+
+        mediaPlayer.start();
     }
 
 
@@ -130,33 +113,68 @@ public class TabActivity extends AppCompatActivity {
     void onClick(FloatingActionButton fab) {
         switch (fab.getId()) {
             case R.id.fab_voice:
-//                intent = TabActivity.createInstance(this);
-                Toast.makeText(this, "fab_voice" + animalList.get(mViewPager.getCurrentItem()).getName(), Toast.LENGTH_SHORT).show();
-                playSound(soundAnimal[mViewPager.getCurrentItem()]);
+                if (mediaPlayer.isPlaying()) {
+                    if (nameTrack.equals(soundAnimal[mViewPager.getCurrentItem()])) {
+                        mediaPlayer.reset();
+                        nameTrack = null;
+                    } else {
+                        mediaPlayer.reset();
+                        nameTrack = soundAnimal[mViewPager.getCurrentItem()];
+                        playSoundWithMP(nameTrack);
+                    }
+                } else {
+                    nameTrack = soundAnimal[mViewPager.getCurrentItem()];
+                    playSoundWithMP(nameTrack);
+                }
                 break;
             case R.id.fab_info_voice:
-//                intent = GameActivity.createInstance(this);
-                Toast.makeText(this, "fab_info_voice", Toast.LENGTH_SHORT).show();
-                playSound(soundAuthor[mViewPager.getCurrentItem()]);
+                if (mediaPlayer.isPlaying()) {
+                    System.out.println("1 " + nameTrack);
+                    System.out.println("2 " + mViewPager.getCurrentItem());
+                    if (nameTrack.equals(soundAuthor[mViewPager.getCurrentItem()])) {
+                        mediaPlayer.reset();
+                        nameTrack = null;
+                        System.out.println(1);
+                    } else {
+                        System.out.println(2);
+                        mediaPlayer.reset();
+                        nameTrack = soundAuthor[mViewPager.getCurrentItem()];
+                        playSoundWithMP(nameTrack);
+                    }
+                } else {
+                    nameTrack = soundAuthor[mViewPager.getCurrentItem()];
+                    playSoundWithMP(nameTrack);
+                    System.out.println(3);
+                }
                 break;
             case R.id.fab_back:
                 finish();
                 break;
         }
+
     }
 
     private List<Animal> getAnimal() {
 //        temporary
         List<Animal> animals = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Animal animal = new Animal();
             animal.setName("Кошка N" + i);
             animal.setId(i);
-            animal.setSoundAnimal(i+1+".mp3");
-            animal.setSoundAuthor(i+1+".mp3");
+            animal.setSoundAnimal(i + 1 + ".mp3");
+            animal.setSoundAuthor(i + 3 + ".mp3");
             animal.setImage("a1");
             animals.add(animal);
         }
         return animals;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

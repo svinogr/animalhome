@@ -2,7 +2,6 @@ package info.upump.animalhome.entity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
@@ -51,7 +49,6 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
         Glide.with(itemView.getContext()).load(identificator).apply(options).into(imageView);
         textView.setText(animal.getName());
     }
-
 
     @OnClick()
     void onClick(View view){
