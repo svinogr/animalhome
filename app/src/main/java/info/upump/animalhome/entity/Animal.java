@@ -10,8 +10,17 @@ public class Animal {
     private String soundAnimal;
     private String soundAuthor;
     private String image;
+    private String question;
 
     public Animal() {
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getName() {
