@@ -10,6 +10,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.upump.animalhome.db.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fab_pager)
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        DBHelper dbHelper = DBHelper.getHelper(this);
+        dbHelper.create_db();
+
     }
 
     @OnClick({R.id.fab_pager, R.id.fab_game, R.id.fab_list})

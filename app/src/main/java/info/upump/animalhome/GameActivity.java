@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.upump.animalhome.db.AnimalDao;
 import info.upump.animalhome.entity.Animal;
 
 public class GameActivity extends AppCompatActivity {
@@ -161,23 +162,15 @@ public class GameActivity extends AppCompatActivity {
 
     private int getRandom(int max) {
         int random = (int) (Math.random() * ++max);
-        System.out.println(random);
         return random;
     }
 
     private void initFourAnimal() {
         animalList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            Animal animal = new Animal();
-            animal.setName("Кошка N" + i);
-            animal.setQuestion("4.mp3");
-            animal.setId(i);
-            animal.setSoundAnimal(1 + ".mp3");
-            animal.setSoundAuthor(1 + ".mp3");
-            animal.setImage("a1");
-            animalList.add(animal);
-        }
-        animalVoice = new String[4];
+        AnimalDao animalDao = new AnimalDao(this);
+        animalList = animalDao.randomFour();
+        System.out.println(animalList);
+        animalVoice = new String[animalList.size()];
         for (int i = 0; i < animalVoice.length; i++) {
             animalVoice[i] = animalList.get(i).getSoundAnimal();
         }

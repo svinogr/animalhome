@@ -27,6 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_card_layout_image_view"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Кошка" />
+        tools:text="кошка" />
 
 </android.support.constraint.ConstraintLayout>

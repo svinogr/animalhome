@@ -13,6 +13,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import info.upump.animalhome.db.AnimalDao;
 import info.upump.animalhome.entity.Animal;
 import info.upump.animalhome.entity.adapter.RecyclerViewAdapter;
 
@@ -43,18 +45,14 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.list_activity_fab_back)
+    void exit(){
+        finish();
+    }
+
+
     private List<Animal> getAnimal() {
-//        temporary
-        List<Animal> animals = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            Animal animal = new Animal();
-            animal.setName("Кошка N" + i);
-            animal.setId(i);
-            animal.setSoundAnimal(i+1+".mp3");
-            animal.setSoundAuthor(i+1+".mp3");
-            animal.setImage("a1");
-            animals.add(animal);
-        }
-        return animals;
+        AnimalDao animalDao = new AnimalDao(this);
+        return animalDao.getAll();
     }
 }

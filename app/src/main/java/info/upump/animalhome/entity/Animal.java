@@ -10,9 +10,19 @@ public class Animal {
     private String soundAnimal;
     private String soundAuthor;
     private String image;
+    private String imagePrev;
     private String question;
+    private String word;
 
     public Animal() {
+    }
+
+    public String getImagePrev() {
+        return imagePrev;
+    }
+
+    public void setImagePrev(String imagePrev) {
+        this.imagePrev = imagePrev;
     }
 
     public String getQuestion() {
@@ -61,5 +71,27 @@ public class Animal {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", soundAnimal='" + soundAnimal + '\'' +
+                ", soundAuthor='" + soundAuthor + '\'' +
+                ", image='" + image + '\'' +
+                ", imagePrev='" + imagePrev + '\'' +
+                ", question='" + question + '\'' +
+                ", word='" + word + '\'' +
+                '}';
     }
 }

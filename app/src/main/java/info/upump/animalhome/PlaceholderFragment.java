@@ -59,7 +59,7 @@ public class PlaceholderFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         setImage();
-        textView.setText(String.valueOf(animal.getName()));
+//        textView.setText(String.valueOf(animal.getName()));
         return rootView;
     }
 

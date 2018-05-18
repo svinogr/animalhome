@@ -44,7 +44,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
                 .transforms(new GlideCircleTransformation(context))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .priority(Priority.HIGH);
-        int identificator = context.getResources().getIdentifier(animal.getImage(), "drawable", context.getPackageName());
+        int identificator = context.getResources().getIdentifier(animal.getImagePrev(), "drawable", context.getPackageName());
 
         Glide.with(itemView.getContext()).load(identificator).apply(options).into(imageView);
         textView.setText(animal.getName());
@@ -52,8 +52,7 @@ class AnimalViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick()
     void onClick(View view){
-        Intent intent = TabActivity.createInstance(context, animal.getId());
+        Intent intent = TabActivity.createInstance(context, getAdapterPosition());
         context.startActivity(intent);
-        Toast.makeText(context, animal.getName(), Toast.LENGTH_SHORT).show();
     }
 }
