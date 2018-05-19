@@ -130,21 +130,29 @@ public class GameActivity extends AppCompatActivity {
             switch (currentVoice) {
                 case 2:
                     identificator = getResources().getIdentifier(animalList.get(0).getWord(), "drawable", getPackageName());
+                    System.out.println(identificator);
+                    System.out.println(animalList.get(0).getWord());
                     fabOne.setImageDrawable(getResources().getDrawable(identificator));
                     fabOne.setVisibility(View.VISIBLE);
                     break;
                 case 4:
                     identificator = getResources().getIdentifier(animalList.get(1).getWord(), "drawable", getPackageName());
+                    System.out.println(identificator);
+                    System.out.println(animalList.get(1).getWord());
                     fabTwo.setImageDrawable(getResources().getDrawable(identificator));
                     fabTwo.setVisibility(View.VISIBLE);
                     break;
                 case 6:
+                    System.out.println(animalList.get(2).getWord());
                     identificator = getResources().getIdentifier(animalList.get(2).getWord(), "drawable", getPackageName());
+                    System.out.println(identificator);
                     fabThree.setImageDrawable(getResources().getDrawable(identificator));
                     fabThree.setVisibility(View.VISIBLE);
                     break;
                 case 8:
                     identificator = getResources().getIdentifier(animalList.get(3).getWord(), "drawable", getPackageName());
+                    System.out.println(identificator);
+                    System.out.println(animalList.get(3).getWord());
                     fabFour.setImageDrawable(getResources().getDrawable(identificator));
                     fabFour.setVisibility(View.VISIBLE);
                     break;

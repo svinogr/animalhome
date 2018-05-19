@@ -27,8 +27,6 @@ import info.upump.animalhome.entity.Animal;
  */
 
 public class PlaceholderFragment extends Fragment{
-    @BindView(R.id.textView)
-    TextView textView;
     @BindView(R.id.fragment_tab_image_view)
     ImageView imageView;
 
@@ -59,7 +57,6 @@ public class PlaceholderFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         setImage();
-//        textView.setText(String.valueOf(animal.getName()));
         return rootView;
     }
 
