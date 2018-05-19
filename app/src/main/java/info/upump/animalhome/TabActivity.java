@@ -117,6 +117,7 @@ public class TabActivity extends AppCompatActivity {
                         playSoundWithMP(nameTrack);
                     }
                 } else {
+                    mediaPlayer.reset();
                     nameTrack = soundAnimal[mViewPager.getCurrentItem()];
                     playSoundWithMP(nameTrack);
                 }

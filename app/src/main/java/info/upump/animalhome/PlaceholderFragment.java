@@ -66,7 +66,7 @@ public class PlaceholderFragment extends Fragment{
     private void setImage() {
         RequestOptions options = new RequestOptions()
 //                .transforms(new RoundedCorners(50))
-                .centerCrop()
+//                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .priority(Priority.HIGH);
         int identificator = getContext().getResources().getIdentifier(animal.getImage(), "drawable", getContext().getPackageName());

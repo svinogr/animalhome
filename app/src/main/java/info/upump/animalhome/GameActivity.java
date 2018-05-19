@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -53,8 +54,8 @@ public class GameActivity extends AppCompatActivity {
     private List<Animal> animalList = new ArrayList<>();
     private Animal rightAnimal;
     private String[] animalVoice;
-    private String[] greetings = new String[]{"1.mp3"};
-    private String[] baddings = new String[]{"2.mp3"};
+    private String[] greetings = new String[]{"greeting.mp3"};
+    private String[] baddings = new String[]{"badding.mp3"};
     private int currentVoice;
     private String question;
     private String pause = "pause.mp3";
@@ -124,19 +125,27 @@ public class GameActivity extends AppCompatActivity {
     private void nextVoice() {
         currentVoice++;
         if (currentVoice != 10) {
-
+            int identificator;
             playSoundWithMP(voices[currentVoice]);
             switch (currentVoice) {
                 case 2:
+                    identificator = getResources().getIdentifier(animalList.get(0).getWord(), "drawable", getPackageName());
+                    fabOne.setImageDrawable(getResources().getDrawable(identificator));
                     fabOne.setVisibility(View.VISIBLE);
                     break;
                 case 4:
+                    identificator = getResources().getIdentifier(animalList.get(1).getWord(), "drawable", getPackageName());
+                    fabTwo.setImageDrawable(getResources().getDrawable(identificator));
                     fabTwo.setVisibility(View.VISIBLE);
                     break;
                 case 6:
+                    identificator = getResources().getIdentifier(animalList.get(2).getWord(), "drawable", getPackageName());
+                    fabThree.setImageDrawable(getResources().getDrawable(identificator));
                     fabThree.setVisibility(View.VISIBLE);
                     break;
                 case 8:
+                    identificator = getResources().getIdentifier(animalList.get(3).getWord(), "drawable", getPackageName());
+                    fabFour.setImageDrawable(getResources().getDrawable(identificator));
                     fabFour.setVisibility(View.VISIBLE);
                     break;
 
@@ -148,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
     private void setRightAnimal() {
         rightAnimal = animalList.get(getRandom(3));
 //        question = rightAnimal.getQuestion();
-        question = "2.mp3";
+        question = "quest.mp3";
     }
 
     private void playQuestion(String string) {
@@ -169,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
         animalList = new ArrayList<>();
         AnimalDao animalDao = new AnimalDao(this);
         animalList = animalDao.randomFour();
-        System.out.println(animalList);
         animalVoice = new String[animalList.size()];
         for (int i = 0; i < animalVoice.length; i++) {
             animalVoice[i] = animalList.get(i).getSoundAnimal();

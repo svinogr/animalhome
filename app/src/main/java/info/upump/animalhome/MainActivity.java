@@ -38,15 +38,12 @@ public class MainActivity extends AppCompatActivity {
         switch (fab.getId()) {
             case R.id.fab_pager:
                 intent = TabActivity.createInstance(this, 0);
-                Toast.makeText(this, "fab_pager", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_game:
                 intent = GameActivity.createInstance(this);
-                Toast.makeText(this, "fab_game", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_list:
                 intent = ListActivity.createIntent(this);
-                Toast.makeText(this, "fab_list", Toast.LENGTH_SHORT).show();
                 break;
         }
         startActivity(intent);
