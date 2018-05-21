@@ -25,9 +25,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/icet"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_card_layout_image_view"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="кошка" />
+        tools:text="IYBJкошка" />
 
 </android.support.constraint.ConstraintLayout>

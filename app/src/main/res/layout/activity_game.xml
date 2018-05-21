@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/game_image_view"
-        android:src="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -29,7 +28,7 @@
         android:visibility="gone"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_play_arrow_black_24dp" />
+        android:src="@drawable/ic_cached_black_24dp" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="200dp"
